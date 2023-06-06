@@ -54,8 +54,8 @@ const parseBoxData = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
 
     return {
         title: title,
-        img: img,
-        url: `komik/${sanitizeUrl(url)}`,
+        thumbnail: img,
+        permalink: `komik/${sanitizeUrl(url)}`,
         latest: latest
     }
 }
@@ -66,6 +66,6 @@ const rowItemChapter = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
 
     return {
         label: label,
-        url: `chapter/${sanitizeUrl(url)}`
+        permalink: `chapter/${sanitizeUrl(url)}`
     }
 }

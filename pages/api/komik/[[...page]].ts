@@ -34,8 +34,8 @@ export default async function handler(
             result: true,
             site: 'komikcast',
             title: title,
-            img: img,
-            genre: genre,
+            thumbnail: img,
+            genres: genre,
             rating: rating,
             released: released,
             type: type,
@@ -74,7 +74,7 @@ const parseChapterRow = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
 
     return {
         label: label,
-        url: `chapter/${sanitizeUrl(url)}`,
+        permalink: `chapter/${sanitizeUrl(url)}`,
         time: time
     }
 }
