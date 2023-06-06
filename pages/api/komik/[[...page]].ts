@@ -50,6 +50,23 @@ export default async function handler(
     }   
 }
 
+const sanitizeUrl = (url: string | undefined) => {
+    if (url == undefined) {
+        return undefined
+    }
+
+    if (!url.includes("/")) {
+        return url
+    }
+
+    const splitted = url.split("/")
+    if (splitted[splitted.length - 1].trim() == "") {
+        return splitted[splitted.length - 2]
+    }
+
+    return splitted[splitted.length - 1]
+}
+
 const parseChapterRow = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const label = $(element).find('a').text() 
     const url = $(element).find('a').attr('href')
@@ -57,7 +74,7 @@ const parseChapterRow = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
 
     return {
         label: label,
-        url: url,
+        url: `chapter/${sanitizeUrl(url)}`,
         time: time
     }
 }

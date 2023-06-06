@@ -29,6 +29,23 @@ export default async function handler(
     
 }
 
+const sanitizeUrl = (url: string | undefined) => {
+    if (url == undefined) {
+        return undefined
+    }
+
+    if (!url.includes("/")) {
+        return url
+    }
+
+    const splitted = url.split("/")
+    if (splitted[splitted.length - 1].trim() == "") {
+        return splitted[splitted.length - 2]
+    }
+
+    return splitted[splitted.length - 1]
+}
+
 const parseBoxData = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const title = $(element).find('.luf a.series h3').text()
     const img = $(element).find('.imgu a.series img').attr('src')
@@ -38,7 +55,7 @@ const parseBoxData = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     return {
         title: title,
         img: img,
-        url: url,
+        url: `komik/${sanitizeUrl(url)}`,
         latest: latest
     }
 }
@@ -49,6 +66,6 @@ const rowItemChapter = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
 
     return {
         label: label,
-        url: url
+        url: `chapter/${sanitizeUrl(url)}`
     }
 }
