@@ -7,9 +7,15 @@ export default async function handler(
     res: NextApiResponse
 ) {
     try {
+        var query = req.body.query
+        if (query.trim() == "") {
+            return res.status(400).json({message: "Masukkan kata kunci"})
+        }
+
+        query = encodeURIComponent(query)
         const response = await gotScraping({
             url: 'https://komikcast.site/wp-admin/admin-ajax.php',
-            body: 'action=searchkomik_komikcast_redesign&search=nano&orderby=relevance&per_page=25',
+            body: `action=searchkomik_komikcast_redesign&search=${query}&orderby=relevance&per_page=50`,
             method: 'POST',
             headers: {
                 referer: 'https://komikcast.site',
