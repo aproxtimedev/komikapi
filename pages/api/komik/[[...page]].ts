@@ -33,7 +33,7 @@ export default async function handler(
         return res.status(200).json({
             result: true,
             site: 'komikcast',
-            title: title,
+            title: sanitizeText(title),
             thumbnail: img,
             genres: genre,
             rating: rating,
@@ -67,13 +67,21 @@ const sanitizeUrl = (url: string | undefined) => {
     return splitted[splitted.length - 1]
 }
 
+const sanitizeText = (text: String | undefined) => {
+    if (text == undefined) {
+        return undefined
+    }
+
+    return text.replace(/\s\s+/g, ' ')
+} 
+
 const parseChapterRow = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const label = $(element).find('a').text() 
     const url = $(element).find('a').attr('href')
     const time = $(element).find('.chapter-link-time').text().trim() 
 
     return {
-        label: label,
+        label: sanitizeText(label),
         permalink: `chapter/${sanitizeUrl(url)}`,
         time: time
     }

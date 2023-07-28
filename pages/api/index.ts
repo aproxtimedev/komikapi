@@ -46,6 +46,14 @@ const sanitizeUrl = (url: string | undefined) => {
     return splitted[splitted.length - 1]
 }
 
+const sanitizeText = (text: String | undefined) => {
+    if (text == undefined) {
+        return undefined
+    }
+
+    return text.replace(/\s\s+/g, ' ')
+} 
+
 const parseBoxData = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const title = $(element).find('.luf a.series h3').text()
     const img = $(element).find('.imgu a.series img').attr('src')
@@ -53,7 +61,7 @@ const parseBoxData = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const latest = $(element).find('.luf ul li').map((i, el) => { return rowItemChapter($, el) } ).toArray()
 
     return {
-        title: title,
+        title: sanitizeText(title),
         thumbnail: img,
         permalink: `komik/${sanitizeUrl(url)}`,
         latest: latest
@@ -65,7 +73,7 @@ const rowItemChapter = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const url = $(element).find('a').attr('href')
 
     return {
-        label: label,
+        label: sanitizeText(label),
         permalink: `chapter/${sanitizeUrl(url)}`
     }
 }
