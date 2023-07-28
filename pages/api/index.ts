@@ -71,9 +71,11 @@ const parseBoxData = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
 const rowItemChapter = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const label = $(element).find('a').text()
     const url = $(element).find('a').attr('href')
+    const updated = $(element).find('span').text()
 
     return {
         label: sanitizeText(label),
-        permalink: `chapter/${sanitizeUrl(url)}`
+        permalink: `chapter/${sanitizeUrl(url)}`,
+        updated: sanitizeText(updated)
     }
 }

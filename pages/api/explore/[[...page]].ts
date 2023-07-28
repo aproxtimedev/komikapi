@@ -49,6 +49,14 @@ const sanitizeUrl = (url: string | undefined) => {
     return splitted[splitted.length - 1]
 }
 
+const sanitizeText = (text: String | undefined) => {
+    if (text == undefined) {
+        return undefined
+    }
+
+    return text.replace(/\s\s+/g, ' ')
+} 
+
 const parseItemComic = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const url = $(element).find('a').attr('href')
     const title = $(element).find(".list-update_item-info h3.title").text()
@@ -72,7 +80,7 @@ const parseChapter = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     const url = $(element).attr('href')
 
     return {
-        label: label,
+        label: sanitizeText(label),
         permalink: `chapter/${sanitizeUrl(url)}`
     }
 }

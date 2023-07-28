@@ -83,6 +83,6 @@ const parseChapterRow = ($: cheerio.CheerioAPI, element: cheerio.Element) => {
     return {
         label: sanitizeText(label),
         permalink: `chapter/${sanitizeUrl(url)}`,
-        time: time
+        updated: sanitizeText(time)
     }
 }
