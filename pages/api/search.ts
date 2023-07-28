@@ -14,11 +14,11 @@ export default async function handler(
 
         query = encodeURIComponent(query)
         const response = await gotScraping({
-            url: 'https://komikcast.site/wp-admin/admin-ajax.php',
+            url: 'https://komikcast.io/wp-admin/admin-ajax.php',
             body: `action=searchkomik_komikcast_redesign&search=${query}&orderby=relevance&per_page=50`,
             method: 'POST',
             headers: {
-                referer: 'https://komikcast.site',
+                referer: 'https://komikcast.io',
                 'content-type': 'application/x-www-form-urlencoded'
             },
         })

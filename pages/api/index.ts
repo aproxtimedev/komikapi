@@ -8,7 +8,7 @@ export default async function handler(
 ) {
     try {
         const resp = await gotScraping({
-            url: 'https://komikcast.site/'
+            url: 'https://komikcast.io/'
         })
 
         const $ = cheerio.load(resp.body) 

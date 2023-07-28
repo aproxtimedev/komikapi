@@ -9,7 +9,7 @@ export default async function handler(
     try {
         const page = req.query.page?.at(0)
         const resp = await gotScraping({
-            url: 'https://komikcast.site/komik/' + page
+            url: 'https://komikcast.io/komik/' + page
         })
 
         if (resp.statusCode == 404) {

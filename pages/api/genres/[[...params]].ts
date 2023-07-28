@@ -11,7 +11,7 @@ export default async function handler(
         const page = req.query.params?.at(1)
 
         const resp = await gotScraping({
-            url: `https://komikcast.site/genres/${genres}` + (page != undefined ? `/page/${page}` : "")
+            url: `https://komikcast.io/genres/${genres}` + (page != undefined ? `/page/${page}` : "")
         })
 
         if (resp.statusCode == 404) {
