@@ -10,7 +10,7 @@ export default async function handler(
         const page = req.query.page?.at(0)
 
         const resp = await gotScraping({
-            url: 'https://komikcast.site/daftar-komik' + (page != undefined ? `/page/${page}` : "")
+            url: 'https://komikcast.io/daftar-komik' + (page != undefined ? `/page/${page}` : "")
         })
 
         if (resp.statusCode == 404) {
